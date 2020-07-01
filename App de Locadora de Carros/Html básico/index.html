@@ -1,0 +1,61 @@
+<!-- cabeçalho -->
+<div ng-include="'templates/partes/cabecalho/cabecalho-ajuda.html'"></div>
+<!-- // // //  -->
+<div class="recuperar_senha" layout="column">
+    <div ncy-breadcrumb></div>
+    <div layout="row" layout-align="center center">
+
+        <div class="card" layout="column" flex-sm="70" flex-md="60" flex-gt-lg="50" ng-switch="showCard">
+
+            <div class="card-content" layout="column" ng-switch-when="default">
+                <h2>Vamos encontrar a sua conta</h2>
+                <form layout="column" name="resetForm" ng-submit="passwordReset(credentials)">
+                  <md-input-container class="md-block">
+                      <label>Digite seu e-mail</label>
+                      <input required="" type="email" name="email" ng-model="credentials.email" ng-disabled="showLoader" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+                      <div ng-messages="resetForm.email.$error" role="alert">
+                          <div ng-messages-include="email-messages"></div>
+                      </div>
+                  </md-input-container>
+                  <md-progress-circular class="btn-submit" ng-if="showLoader" md-mode="indeterminate"></md-progress-circular>
+                  <md-button type="submit" class="md-primary md-raised btn-submit" ng-if="!showLoader">Buscar</md-button>
+                </form>
+            </div>
+
+            <div class="card-content" layout="column" ng-switch-when="error">
+                <h2>Ops! Não encontramos essa conta</h2>
+                <p>{{emailSearched}}</p>
+                <p>Verifique se o e-mail foi digitado corretamente ou se você utilizou algum outro e-mail.
+                  Você ainda pode ter se cadastrado usando o Facebook ou o Google,
+                  neste caso, clique em <a ui-sref="home" class="cor-azul">entrar</a> e use as credenciais da sua rede social.
+                </p>
+                <form layout="column" name="resetForm" ng-submit="passwordReset(credentials)">
+                  <md-input-container class="md-block">
+                      <label>Digite seu e-mail</label>
+                      <input required="" type="email" name="email" ng-model="credentials.email" ng-disabled="showLoader" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+                      <div ng-messages="resetForm.email.$error" role="alert">
+                          <div ng-messages-include="email-messages"></div>
+                      </div>
+                  </md-input-container>
+                  <md-progress-circular class="btn-submit" ng-if="showLoader" md-mode="indeterminate"></md-progress-circular>
+                  <md-button type="submit" class="md-primary md-raised btn-submit" ng-if="!showLoader">Buscar</md-button>
+                </form>
+            </div>
+
+            <div class="card-content" layout="column" ng-switch-when="success">
+                <h2>Verifique o seu e-mail</h2>
+                <p>Para escolher uma nova senha clique no link que enviamos para o seu e-mail <span class="cor-azul">{{emailSearched}}</span>.
+                </p>
+                <p class="spacer">Caso não consiga visualizar o e-mail, verifique outras pastas que ele possa estar, como pasta de lixo eletrônico, spam ou outras.
+                </p>
+                <p class="smaller-text margin">Não recebeu o e-mail? <a ui-sref="ajuda" class="cor-azul">Siga essas dicas da Central de Ajuda.</a></p>
+                <p class="smaller-text">Não é o seu e-mail? <a href ng-click="gotoCard('default')" class="cor-azul">Tente novamente.</a></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- rodapé -->
+<div ng-include="'templates/partes/rodape.html'"></div>
+<!-- // // //  -->
